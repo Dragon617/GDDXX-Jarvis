@@ -1,7 +1,7 @@
 {
   "name": "gddxx-jarvis",
   "productName": "GDDXX-Jarvis",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "GDDXX-Jarvis: a local desktop Agent that helps you talk, monitor information, and get real work done.",
   "author": "GDDXX-Jarvis Project",
   "main": "electron/main.cjs",
@@ -89,6 +89,7 @@
     "probe:settings-capture-contract": "node scripts/probe-settings-capture-contract.cjs",
     "probe:settings-dirty-state-contract": "node scripts/probe-settings-dirty-state-contract.cjs",
     "probe:wake-variant-expansion-contract": "node scripts/probe-wake-variant-expansion-contract.cjs",
+    "probe:first-run-feedback-contract": "node scripts/probe-first-run-feedback-contract.cjs",
     "probe:tts-repeat": "node scripts/probe-tts-repeat.cjs",
     "rebuild:native": "node ./node_modules/electron-builder/cli.js install-app-deps",
     "rebuild:web": "npm rebuild better-sqlite3",

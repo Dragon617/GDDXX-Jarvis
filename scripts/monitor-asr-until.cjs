@@ -67,9 +67,12 @@ async function main() {
 
   while (Date.now() < until.getTime()) {
     round += 1;
-    const asr = runCommand(process.execPath, [path.join("scripts", "probe-asr-real-audio.cjs")], 45000);
+    const asr = runCommand(process.execPath, [
+      path.join("scripts", "probe-server-launcher.cjs"),
+      path.join("scripts", "probe-asr-real-audio.cjs"),
+    ], 60000);
     const product = round % 5 === 0
-      ? runCommand(process.execPath, [path.join("scripts", "probe-product-quality.cjs")], 45000)
+      ? runCommand(process.execPath, [path.join("scripts", "probe-product-quality-launcher.cjs")], 60000)
       : null;
     const row = {
       type: "round",

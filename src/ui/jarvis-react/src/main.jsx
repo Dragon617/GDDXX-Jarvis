@@ -1031,6 +1031,7 @@ function FirstRunSetup({ api, onComplete }) {
   const errorRef = useRef(null);
 
   const changeModelProvider = (next) => {
+    setError("");
     setProvider(next);
     setModel(next === "deepseek" ? "deepseek-chat" : "");
     setBaseURL("");
@@ -1039,6 +1040,7 @@ function FirstRunSetup({ api, onComplete }) {
   };
 
   const changeVoiceProvider = (next) => {
+    setError("");
     setVoiceProvider(next);
     if (next === "local") setAliyunApiKey("");
     setShowVoiceKey(false);
@@ -1119,16 +1121,16 @@ function FirstRunSetup({ api, onComplete }) {
           </label>
           <label className="field">
             <span>模型名称</span>
-            <input ref={modelRef} name="model" autoComplete="off" value={model} onChange={(event) => setModel(event.target.value)} placeholder="deepseek-chat" required aria-required="true" />
+            <input ref={modelRef} name="model" autoComplete="off" value={model} onChange={(event) => { setModel(event.target.value); setError(""); }} placeholder="deepseek-chat" required aria-required="true" />
           </label>
           <label className="field">
             <span>API Key</span>
-              <span className="secret-field"><input ref={apiKeyRef} name="apiKey" type={showModelKey ? "text" : "password"} autoComplete="new-password" value={apiKey} onChange={(event) => setApiKey(event.target.value)} placeholder="sk-..." required aria-required="true" /><button type="button" onClick={() => setShowModelKey((value) => !value)} aria-label={showModelKey ? "隐藏模型 API Key" : "显示模型 API Key"} title={showModelKey ? "隐藏密钥" : "显示密钥"}>{showModelKey ? <EyeOff size={15} /> : <Eye size={15} />}</button></span>
+              <span className="secret-field"><input ref={apiKeyRef} name="apiKey" type={showModelKey ? "text" : "password"} autoComplete="new-password" spellCheck="false" value={apiKey} onChange={(event) => { setApiKey(event.target.value); setError(""); }} placeholder="sk-..." required aria-required="true" /><button type="button" onClick={() => setShowModelKey((value) => !value)} aria-label={showModelKey ? "隐藏模型 API Key" : "显示模型 API Key"} title={showModelKey ? "隐藏密钥" : "显示密钥"}>{showModelKey ? <EyeOff size={15} /> : <Eye size={15} />}</button></span>
           </label>
           {provider === "custom" ? (
             <label className="field">
               <span>Base URL</span>
-              <input ref={baseURLRef} name="baseURL" type="url" inputMode="url" autoComplete="url" value={baseURL} onChange={(event) => setBaseURL(event.target.value)} placeholder="https://.../v1" required aria-required="true" />
+              <input ref={baseURLRef} name="baseURL" type="url" inputMode="url" autoComplete="url" value={baseURL} onChange={(event) => { setBaseURL(event.target.value); setError(""); }} placeholder="https://.../v1" required aria-required="true" />
             </label>
           ) : null}
         </fieldset>
@@ -1146,7 +1148,7 @@ function FirstRunSetup({ api, onComplete }) {
           {voiceProvider === "aliyun" ? (
             <label className="field">
               <span>DashScope API Key</span>
-              <span className="secret-field"><input ref={aliyunKeyRef} type={showVoiceKey ? "text" : "password"} autoComplete="new-password" value={aliyunApiKey} onChange={(event) => setAliyunApiKey(event.target.value)} placeholder="sk-..." required /><button type="button" onClick={() => setShowVoiceKey((value) => !value)} aria-label={showVoiceKey ? "隐藏 DashScope API Key" : "显示 DashScope API Key"} title={showVoiceKey ? "隐藏密钥" : "显示密钥"}>{showVoiceKey ? <EyeOff size={15} /> : <Eye size={15} />}</button></span>
+              <span className="secret-field"><input ref={aliyunKeyRef} name="aliyunApiKey" type={showVoiceKey ? "text" : "password"} autoComplete="new-password" spellCheck="false" value={aliyunApiKey} onChange={(event) => { setAliyunApiKey(event.target.value); setError(""); }} placeholder="sk-..." required aria-required="true" /><button type="button" onClick={() => setShowVoiceKey((value) => !value)} aria-label={showVoiceKey ? "隐藏 DashScope API Key" : "显示 DashScope API Key"} title={showVoiceKey ? "隐藏密钥" : "显示密钥"}>{showVoiceKey ? <EyeOff size={15} /> : <Eye size={15} />}</button></span>
             </label>
           ) : null}
         </fieldset>

@@ -1,6 +1,10 @@
-# GDDXX-Jarvis 0.3.0
+# GDDXX-Jarvis 0.3.1
 
 This release focuses on dependable voice entry, clean Windows deployment, and a calmer conversation cockpit.
+
+- Keeps first-run validation feedback synchronized while users correct model, key, URL, and voice fields.
+- Expands wake-phrase phonetic coverage and stabilizes settings, conversation cleanup, and compact layouts.
+- Aligns the GitHub default branch, release workflow, documentation, and project identity for public release.
 
 - Adds a permanent arrow-only manual entrance on the standby screen.
 - Improves quiet-microphone wake recognition and preserves audio during local Whisper warmup.

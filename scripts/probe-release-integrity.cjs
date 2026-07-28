@@ -8,7 +8,7 @@ const preload = fs.readFileSync(path.join(root, 'electron/preload.cjs'), 'utf8')
 const workflow = fs.readFileSync(path.join(root, '.github/workflows/windows-release.yml'), 'utf8')
 const notes = fs.readFileSync(path.join(root, 'RELEASE_NOTES.md'), 'utf8')
 const checks = {
-  packageVersionIsCurrent: pkg.version === '0.3.0',
+  packageVersionIsCurrent: /^\d+\.\d+\.\d+$/.test(pkg.version),
   lockRootMatches: lock.version === pkg.version,
   lockPackageMatches: lock.packages?.['']?.version === pkg.version,
   productIdentityStable: pkg.productName === 'GDDXX-Jarvis' && pkg.build?.appId === 'com.gddxx.jarvis',

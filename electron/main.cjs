@@ -842,9 +842,10 @@ async function runWakeSequenceProbe() {
       }), 12000);
       if (!ready.ready) return { ok: false, error: "wake probe bridge unavailable" };
       const titleBranded = /GDDXX-Jarvis/i.test(document.title || "");
+      const expectedVersion = await window.jarvisDesktop?.getVersion?.();
       const footerVersion = await waitFor(() => {
         const text = document.querySelector(".system-footer")?.textContent || "";
-        return { ready: /GDDXX-Jarvis\\s+v0\\.3\\.0/.test(text), text };
+        return { ready: Boolean(expectedVersion && text.includes(\`GDDXX-Jarvis v\${expectedVersion}\`)), text };
       }, 3000);
       const footerVersionVisible = footerVersion.ready;
       const entry = document.querySelector(".standby-entry");
@@ -901,6 +902,7 @@ async function runWakeSequenceProbe() {
           && !(document.querySelector(".error-banner")?.textContent?.trim())
         ),
         titleBranded,
+        expectedVersion,
         footerVersionVisible,
         footerText: footerVersion.text,
         manualEntryVisible,

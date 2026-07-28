@@ -21,7 +21,8 @@ const scripts = [
   'probe-settings-scroll-flow-contract.cjs',
   'probe-settings-capture-contract.cjs',
   'probe-settings-dirty-state-contract.cjs',
-  'probe-wake-variant-expansion-contract.cjs'
+  'probe-wake-variant-expansion-contract.cjs',
+  'probe-first-run-feedback-contract.cjs'
 ]
 
 const results = scripts.map((script) => {

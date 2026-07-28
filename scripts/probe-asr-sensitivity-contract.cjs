@@ -21,6 +21,7 @@ const checks = [
   ['ended microphone tracks automatically reconnect', /mic-track-ended[\s\S]{0,500}startCloudStream\(replacement/.test(core)],
   ['mute and unmute transitions remain diagnosable', /mic-track-muted/.test(core) && /mic-track-unmuted/.test(core)],
   ['local Whisper prewarms during application startup', /getVoiceConfig\(\)\?\.voiceProvider !== 'aliyun'[\s\S]{0,100}startVoiceServer\(\)/.test(index)],
+  ['local Whisper prewarm imports its server manager', /import \{ startVoiceServer \} from '\.\/voice\/manager\.js'/.test(index)],
   ['flush requests survive model warmup', /pendingFlush[\s\S]{0,1800}type: 'flush'/.test(localAsr)],
 ]
 

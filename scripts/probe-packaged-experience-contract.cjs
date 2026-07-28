@@ -7,7 +7,7 @@ const checks = {
   packagedExeSelected: /dist', 'win-unpacked', 'GDDXX-Jarvis\.exe/.test(runner),
   packagedResourcesSelected: /win-unpacked', 'resources', 'app\.asar/.test(runner),
   brandTitleVerified: /titleBranded/.test(main) && /GDDXX-Jarvis\/i/.test(main),
-  versionVisibleVerified: /footerVersionVisible/.test(main) && /v0\\\.3\\\.0/.test(main),
+  versionVisibleVerified: /expectedVersion/.test(main) && main.includes('GDDXX-Jarvis v\\${expectedVersion}') && !/v0\\\.3\\\.0/.test(main),
   manualEntryVisibleVerified: /manualEntryVisible/.test(main) && /getBoundingClientRect\(\)\.width >= 40/.test(main),
   arrowOnlyVerified: /manualEntryArrowOnly/.test(main) && /!entry\.textContent\.trim\(\)/.test(main),
   coreOnlineVerified: /coreOnline/.test(main) && /statusBody\.running/.test(main),

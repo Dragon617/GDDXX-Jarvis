@@ -151,7 +151,7 @@ Run `npm.cmd run check` before opening a pull request. For desktop wiring use `n
 
 Jarvis sends requests only to providers configured by the user. API keys remain in the ignored local `config.json`. Do not paste keys into issues, pull requests, screenshots, logs, or source files. Remove any personal runtime data before publishing a release archive.
 
-Jarvis is now a local desktop Agent with its own copied-and-modified core runtime.
+GDDXX-Jarvis is a self-contained local desktop Agent. Its application runtime lives in this repository under `src/core` and does not depend on another Jarvis project at runtime.
 
 The working direction is:
 
@@ -159,7 +159,7 @@ The working direction is:
 Jarvis sci-fi desktop shell + local Jarvis core
 ```
 
-The core was migrated from a Jarvis-style architecture, but runtime code now lives inside this repository under `src/core`. The desktop app must not import or proxy an external Jarvis backend.
+The desktop app does not import or proxy an external Jarvis backend. Third-party components that remain in the repository retain their own license and notice files.
 
 ## Frontend
 

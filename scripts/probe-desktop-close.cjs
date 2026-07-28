@@ -56,10 +56,12 @@ child.on("exit", (code) => {
   if (settled) return;
   settled = true;
   clearTimeout(timeout);
+  const fatalOutput = /UnhandledPromiseRejection|ReferenceError:|uncaught exception/i.test(output);
   const result = {
-    ok: ready && code === 0,
+    ok: ready && code === 0 && !fatalOutput,
     ready,
     code,
+    fatalOutput,
     elapsedMs: Date.now() - startedAt,
     outputTail: output.split(/\r?\n/).filter(Boolean).slice(-20),
   };
