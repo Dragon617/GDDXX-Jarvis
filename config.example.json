@@ -1,19 +1,16 @@
 {
-  "provider": "deepseek",
-  "apiKey": "YOUR_DEEPSEEK_API_KEY",
-  "model": "deepseek-v4-pro",
-  "voice": {
-    "voiceProvider": "aliyun",
-    "aliyunApiKey": "YOUR_DASHSCOPE_API_KEY"
+  "name": "sir",
+  "reply_lang": "en",
+  "llm": {
+    "provider": "deepseek",
+    "base_url": "https://api.deepseek.com/v1",
+    "api_key": "sk-...",
+    "model": "deepseek-chat"
   },
-  "tts": {
-    "ttsProvider": "jarvis",
-    "ttsVoiceId": "jarvis-high"
-  },
-  "hotspots": {
-    "refreshMinutes": 30
-  },
-  "aiHot": {
-    "endpoint": "https://aihot.virxact.com/api/public/items"
-  }
+  "amap": {"key": "高德 Web 服务 key（可选，用于天气和路线）"},
+  "mihome": {"server": "cn"},
+  "harness": {"path": "DeepSeek Harness 的 dsh 命令路径（可选）"},
+  "plugins": {"mihome": true, "amap": true, "harness": true, "creator": true, "demos": true},
+  "workspace": "~/Desktop/Jarvis 作品",
+  "debug_clips": false
 }

@@ -1,0 +1,177 @@
+{
+ "_about": "Speech models Jarvis downloads on first run, into the models folder (see jarvis/paths.py). Each file: tried from its urls in order (hf-mirror first: it works in mainland China), else from the release archive or zip it ships in. size/sha256 are checked when given. group: core = always, en = English voice mode. dirs: whole model folders that only come as a release archive (Chinese voice mode).",
+ "files": [
+  {
+   "path": "silero_vad.onnx",
+   "size": 643854,
+   "sha256": "9e2449e1087496d8d4caba907f23e0bd3f78d91fa552479bb9c23ac09cbb1fd6",
+   "urls": [
+    "https://hf-mirror.com/csukuangfj/sherpa-onnx-silero-vad/resolve/main/silero_vad.onnx",
+    "https://huggingface.co/csukuangfj/sherpa-onnx-silero-vad/resolve/main/silero_vad.onnx",
+    "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx"
+   ],
+   "group": "core"
+  },
+  {
+   "path": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/model.int8.onnx",
+   "size": 237115547,
+   "sha256": "12ca1a2ae7ecf3e0019ef2822307ee0b5cadc9196569e379b4c4026f8205276d",
+   "urls": [
+    "https://hf-mirror.com/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/resolve/main/model.int8.onnx",
+    "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/resolve/main/model.int8.onnx"
+   ],
+   "group": "core",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09.tar.bz2"
+  },
+  {
+   "path": "sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/tokens.txt",
+   "size": 315894,
+   "sha256": "f449eb28dc567533d7fa59be34e2abca8784f771850c78a47fb731a31429a1dc",
+   "urls": [
+    "https://hf-mirror.com/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/resolve/main/tokens.txt",
+    "https://huggingface.co/csukuangfj/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09/resolve/main/tokens.txt"
+   ],
+   "group": "core",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09.tar.bz2"
+  },
+  {
+   "path": "sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/encoder.int8.onnx",
+   "size": 652184296,
+   "sha256": "a32b12d17bbbc309d0686fbbcc2987b5e9b8333a7da83fa6b089f0a2acd651ab",
+   "urls": [
+    "https://hf-mirror.com/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/encoder.int8.onnx",
+    "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/encoder.int8.onnx"
+   ],
+   "group": "en",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8.tar.bz2"
+  },
+  {
+   "path": "sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/decoder.int8.onnx",
+   "size": 7257753,
+   "sha256": "b6bb64963457237b900e496ee9994b59294526439fbcc1fecf705b31a15c6b4e",
+   "urls": [
+    "https://hf-mirror.com/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/decoder.int8.onnx",
+    "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/decoder.int8.onnx"
+   ],
+   "group": "en",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8.tar.bz2"
+  },
+  {
+   "path": "sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/joiner.int8.onnx",
+   "size": 1739080,
+   "sha256": "7946164367946e7f9f29a122407c3252b680dbae9a51343eb2488d057c3c43d2",
+   "urls": [
+    "https://hf-mirror.com/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/joiner.int8.onnx",
+    "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/joiner.int8.onnx"
+   ],
+   "group": "en",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8.tar.bz2"
+  },
+  {
+   "path": "sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/tokens.txt",
+   "size": 9384,
+   "sha256": "ec182b70dd42113aff6c5372c75cac58c952443eb22322f57bbd7f53977d497d",
+   "urls": [
+    "https://hf-mirror.com/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/tokens.txt",
+    "https://huggingface.co/csukuangfj/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8/resolve/main/tokens.txt"
+   ],
+   "group": "en",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-nemo-parakeet-tdt-0.6b-v2-int8.tar.bz2"
+  },
+  {
+   "path": "openwakeword/hey_jarvis_v0.1.onnx",
+   "size": 1271370,
+   "sha256": "94a13cfe60075b132f6a472e7e462e8123ee70861bc3fb58434a73712ee0d2cb",
+   "urls": [
+    "https://github.com/dscripka/openWakeWord/releases/download/v0.5.1/hey_jarvis_v0.1.onnx"
+   ],
+   "group": "en"
+  },
+  {
+   "path": "openwakeword/melspectrogram.onnx",
+   "size": 1087958,
+   "sha256": "ba2b0e0f8b7b875369a2c89cb13360ff53bac436f2895cced9f479fa65eb176f",
+   "urls": [
+    "https://github.com/dscripka/openWakeWord/releases/download/v0.5.1/melspectrogram.onnx"
+   ],
+   "group": "en"
+  },
+  {
+   "path": "openwakeword/embedding_model.onnx",
+   "size": 1326578,
+   "sha256": "70d164290c1d095d1d4ee149bc5e00543250a7316b59f31d056cff7bd3075c1f",
+   "urls": [
+    "https://github.com/dscripka/openWakeWord/releases/download/v0.5.1/embedding_model.onnx"
+   ],
+   "group": "en"
+  },
+  {
+   "path": "alan/en_GB-alan-medium.onnx",
+   "size": 63201430,
+   "sha256": "d907c48857000940104a9ad3248a94617df917d1a525c9495490fdbf87fd54b2",
+   "urls": [
+    "https://hf-mirror.com/rhasspy/piper-voices/resolve/main/en/en_GB/alan/medium/en_GB-alan-medium.onnx",
+    "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/alan/medium/en_GB-alan-medium.onnx"
+   ],
+   "group": "en",
+   "optional": true
+  },
+  {
+   "path": "alan/en_GB-alan-medium.onnx.json",
+   "size": 4888,
+   "sha256": "c0f0d124e5895c00e7c03b35dcc8287f319a6998a365b182deb5c8e752ee8c1e",
+   "urls": [
+    "https://hf-mirror.com/rhasspy/piper-voices/resolve/main/en/en_GB/alan/medium/en_GB-alan-medium.onnx.json",
+    "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/alan/medium/en_GB-alan-medium.onnx.json"
+   ],
+   "group": "en",
+   "optional": true
+  },
+  {
+   "path": "speaker/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx",
+   "urls": [
+    "https://github.com/k2-fsa/sherpa-onnx/releases/download/speaker-recongition-models/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx",
+    "https://hf-mirror.com/csukuangfj/speaker-embedding-models/resolve/main/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx",
+    "https://huggingface.co/csukuangfj/speaker-embedding-models/resolve/main/3dspeaker_speech_campplus_sv_zh_en_16k-common_advanced.onnx"
+   ],
+   "group": "core",
+   "optional": true
+  },
+  {
+   "path": "jarvis/jarvis-high.onnx",
+   "urls": [
+    "https://hf-mirror.com/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx",
+    "https://huggingface.co/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx"
+   ],
+   "group": "en",
+   "optional": true,
+   "zip": "https://modelscope.cn/datasets/rubintry/jarvis/resolve/master/jarvis%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B/jarvis.zip",
+   "note": "community Piper voice trained on film audio; see NOTICE",
+   "size": 114199108
+  },
+  {
+   "path": "jarvis/jarvis-high.onnx.json",
+   "urls": [
+    "https://hf-mirror.com/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx.json",
+    "https://huggingface.co/jgkawell/jarvis/resolve/main/en/en_GB/jarvis/high/jarvis-high.onnx.json"
+   ],
+   "group": "en",
+   "optional": true,
+   "zip": "https://modelscope.cn/datasets/rubintry/jarvis/resolve/master/jarvis%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B/jarvis.zip",
+   "note": "community Piper voice trained on film audio; see NOTICE",
+   "size": 7262
+  }
+ ],
+ "dirs": [
+  {
+   "dir": "sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/kws-models/sherpa-onnx-kws-zipformer-wenetspeech-3.3M-2024-01-01.tar.bz2",
+   "group": "zh"
+  },
+  {
+   "dir": "kokoro-multi-lang-v1_1",
+   "archive": "https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/kokoro-multi-lang-v1_1.tar.bz2",
+   "group": "zh"
+  }
+ ]
+}

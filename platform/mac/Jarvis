@@ -1,0 +1,7 @@
+#!/bin/bash
+# Jarvis.app launcher: runs app/launch.py with the Python inside the app (first run sets up, then opens the window).
+# The voice service is a child of this process, so macOS asks for the microphone on behalf of Jarvis.app.
+RES="$(cd "$(dirname "$0")/../Resources" && pwd)"
+mkdir -p "$HOME/.jarvis"
+xattr -dr com.apple.quarantine "$RES/python" 2>/dev/null
+exec "$RES/python/bin/python3" "$RES/app/launch.py" >> "$HOME/.jarvis/app.log" 2>&1
