@@ -2,10 +2,10 @@ __pycache__/
 *.pyc
 .venv/
 venv/
-models/
-python/
-dist/
-build/
+/models/
+/python/
+/dist/
+/build/
 *.log
 config.json
 mihome.json
