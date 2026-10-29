@@ -61,7 +61,7 @@ def _private(p):
             import subprocess
             user = os.environ.get("USERNAME", "")
             if user:
-                subprocess.run(["icacls", str(p), "/inheritance:r", "/grant:r", f"{user}:(R,W)"],
+                subprocess.run(["icacls", str(p), "/inheritance:r", "/grant:r", f"{user}:(F)"],
                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=10)
         except Exception:
             pass
