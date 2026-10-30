@@ -83,7 +83,6 @@ document.querySelectorAll('.wave-tabs button').forEach(b => b.addEventListener('
 const METERS = ['DATA', 'MODEL', 'AGENT', 'KNOWLEDGE', 'WORLD'];
 $('#meters').innerHTML = METERS.map(m => `<div class="meter">${m}<canvas></canvas></div>`).join('');
 const meterCvs = [...document.querySelectorAll('.meter canvas')];
-const routePts = [[0.05, 0.5], [0.16, 0.5], [0.24, 0.38], [0.36, 0.42], [0.44, 0.62], [0.56, 0.58], [0.64, 0.74], [0.75, 0.66], [0.85, 0.7], [0.92, 0.46], [0.95, 0.24]];
 const ROADS = (() => { let sd = 7; const rnd = () => (sd = (sd * 16807) % 2147483647) / 2147483647; const out = [];
   for (let i = 0; i < 64; i++) { const horiz = rnd() < 0.5; const p = []; let x = horiz ? -0.05 : rnd(), y = horiz ? rnd() : -0.05; for (let k = 0; k < 6; k++) { p.push([x, y]); if (horiz) { x += 0.22; y += (rnd() - 0.5) * 0.25; } else { y += 0.24; x += (rnd() - 0.5) * 0.12; } } out.push({ p, o: 0.04 + rnd() * (rnd() < 0.2 ? 0.2 : 0.08) }); }
   return out; })();
