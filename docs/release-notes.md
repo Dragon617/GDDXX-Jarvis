@@ -2,13 +2,15 @@
 
 全新重写：支持 macOS 和 Windows，接入你自己选的大模型。
 
+**2.0.1**：没有麦克风时不再报错（插上后自动连上）；备用声音和语音检测模型下载更稳，国内网络也能装好；Windows 安装包有中文界面。每个安装包发布前都会在 Mac（Apple 芯片、Intel）和 Windows 上完整安装测试一遍。
+
 ### 下载哪个
 
 | 电脑 | 文件 |
 |---|---|
-| Mac（Apple 芯片：M1/M2/M3/M4…） | `Jarvis-2.0.0-arm64.dmg` |
-| Mac（Intel 芯片） | `Jarvis-2.0.0-x86_64.dmg` |
-| Windows 10/11（64 位） | `Jarvis-Setup-2.0.0.exe` |
+| Mac（Apple 芯片：M1/M2/M3/M4…） | `Jarvis-2.0.1-arm64.dmg` |
+| Mac（Intel 芯片） | `Jarvis-2.0.1-x86_64.dmg` |
+| Windows 10/11（64 位） | `Jarvis-Setup-2.0.1.exe` |
 
 不知道 Mac 是哪种芯片：点左上角苹果图标 → 关于本机，看“芯片”或“处理器”那一行。
 
@@ -24,5 +26,5 @@
 ---
 
 **English**: Jarvis 2.0, a rewrite for macOS and Windows that works with the language model you choose. Download the
-`.dmg` for your Mac (arm64 = Apple silicon, x86_64 = Intel) or `Jarvis-Setup-2.0.0.exe` for Windows. The builds are not
+`.dmg` for your Mac (arm64 = Apple silicon, x86_64 = Intel) or `Jarvis-Setup-2.0.1.exe` for Windows. The builds are not
 signed: on a Mac, right-click Jarvis in Applications → Open; on Windows, choose More info → Run anyway.

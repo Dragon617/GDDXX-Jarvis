@@ -9,7 +9,7 @@ $Out = "$Root\dist"; $Src = "$Out\win"
 if (Test-Path $Src) { Remove-Item -Recurse -Force $Src }
 New-Item -ItemType Directory -Force "$Src", "$Out\cache" | Out-Null
 
-foreach ($d in "jarvis", "hud", "app") {
+foreach ($d in "jarvis", "hud", "app", "models-bundle") {
   robocopy "$Root\$d" "$Src\$d" /E /XD __pycache__ /XF *.pyc /NFL /NDL /NJH /NJS | Out-Null
 }
 Copy-Item "$Root\requirements.txt", "$Root\VERSION", "$Root\LICENSE", "$Root\NOTICE.md" "$Src\"

@@ -72,9 +72,64 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: {name: "jarvis-${{ matrix.os }}", path: "${{ matrix.out }}", if-no-files-found: error}
 
+  install:
+    # install the built installer the way a user would, download the real models, run the voice scenarios with the
+    # installed Python, then open the app and check the voice service comes up with no errors
+    needs: [build]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15-intel, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {name: "jarvis-${{ matrix.os }}", path: dist}
+      - name: install from the .dmg and set up (first run)
+        if: runner.os == 'macOS'
+        run: |
+          hdiutil attach dist/*.dmg -mountpoint /tmp/jv -nobrowse
+          cp -R /tmp/jv/Jarvis.app /Applications/ && hdiutil detach /tmp/jv
+          RES=/Applications/Jarvis.app/Contents/Resources
+          "$RES/python/bin/python3" "$RES/app/install.py" --no-page
+          echo "VPY=$HOME/Library/Application Support/Jarvis/venv/bin/python" >> "$GITHUB_ENV"
+      - name: install from the .exe and set up (first run)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $exe = (Get-ChildItem dist\*.exe)[0].FullName
+          Start-Process $exe -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/TASKS=' -Wait
+          $app = "$env:LOCALAPPDATA\Jarvis"
+          if (-not (Test-Path "$app\python\pythonw.exe")) { throw "not installed to $app" }
+          & "$app\python\python.exe" "$app\app\install.py" --no-page
+          if ($LASTEXITCODE -ne 0) { throw "setup failed" }
+          "VPY=$app\venv\Scripts\python.exe" | Out-File -Append -Encoding utf8 $env:GITHUB_ENV
+      - name: voice scenarios with the installed Python and models
+        shell: bash
+        run: |
+          "$VPY" -c "import webview, sherpa_onnx, livekit, piper, cv2; print('imports ok')"
+          "$VPY" tests/simulate_en.py
+      - name: open the app (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          open /Applications/Jarvis.app
+          "$VPY" tests/check_running.py 240
+      - name: open the app (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $app = "$env:LOCALAPPDATA\Jarvis"
+          Start-Process "$app\python\pythonw.exe" -ArgumentList "`"$app\app\launch.py`"" -WorkingDirectory $app
+          & $env:VPY tests/check_running.py 240
+          if ($LASTEXITCODE -ne 0) { throw "app check failed" }
+      - name: setup log
+        if: always()
+        shell: bash
+        run: cat "$HOME/Library/Application Support/Jarvis/install.log" "$LOCALAPPDATA/Jarvis/install.log" 2>/dev/null | tail -80 || true
+
   release:
     if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
-    needs: [build]
+    needs: [build, install]
     runs-on: ubuntu-latest
     permissions: {contents: write}
     steps:

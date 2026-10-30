@@ -92,8 +92,9 @@ def _sha(p):
 def _good(dest, e):
     if not dest.exists() or dest.stat().st_size == 0:
         return False
-    if e.get("size") and dest.stat().st_size != e["size"]:
-        return False
+    n = dest.stat().st_size
+    if e.get("size") and n != e["size"]:
+        return n in e.get("alt_sizes", [])           # the same model re-exported by another host (size only)
     return not e.get("sha256") or _sha(dest) == e["sha256"]
 
 
@@ -118,6 +119,13 @@ def _fetch(url, dest, expect=0):
     os.replace(part, dest)
 
 
+def _extract(t, dest):
+    try:
+        t.extractall(dest, filter="data")              # safe extraction (Python 3.12, and recent 3.10/3.11 patches)
+    except TypeError:                                  # older 3.10/3.11: no filter argument
+        t.extractall(dest)
+
+
 def _from_archive(url, members, models):
     """Pull files out of a .tar.bz2 / .zip release. members: {name inside (basename): destination}."""
     with tempfile.TemporaryDirectory() as td:
@@ -129,7 +137,7 @@ def _from_archive(url, members, models):
                 z.extractall(out)
         else:
             with tarfile.open(arc) as t:
-                t.extractall(out, filter="data")
+                _extract(t, out)
         for p in out.rglob("*"):
             if p.is_file() and p.name in members:
                 members[p.name].parent.mkdir(parents=True, exist_ok=True)
@@ -167,7 +175,8 @@ def models():
                 ok = _good(dest, e)
                 if ok:
                     break
-                log(f"  文件校验不通过，换一个来源：{url}")
+                got = dest.stat().st_size if dest.exists() else 0
+                log(f"  文件校验不通过（{got} 字节，sha256 {_sha(dest)[:16] if got else '-'}），换一个来源：{url}")
                 dest.unlink(missing_ok=True)
             except Exception as ex:
                 log(f"  {url} 不可用：{type(ex).__name__}")
@@ -189,6 +198,9 @@ def models():
                 log(f"  跳过可选模型 {e['path']}（之后再打开 Jarvis 会再试）")
                 continue
             raise RuntimeError(f"模型下载失败：{e['path']}。请检查网络后重新打开 Jarvis。")
+    if "en" in groups and not any(_good(M / e["path"], e) for e in todo if e["path"].endswith((".onnx",)) and
+                                  e["path"].startswith(("jarvis/", "alan/"))):
+        raise RuntimeError("贾维斯的声音模型没有下载下来（jarvis-high 和备用的 alan 都失败了）。请检查网络后重新打开 Jarvis。")
     for d in man.get("dirs", []):
         if d.get("group") in groups and not (M / d["dir"]).exists():
             log(f"下载模型文件夹 {d['dir']}")
@@ -196,7 +208,7 @@ def models():
                 arc = Path(td) / "a.tar.bz2"
                 _fetch(d["archive"], arc)
                 with tarfile.open(arc) as t:
-                    t.extractall(M, filter="data")
+                    _extract(t, M)
 
 
 # ---- page ------------------------------------------------------------------------------------------------

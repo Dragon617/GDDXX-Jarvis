@@ -42,6 +42,7 @@ function connectVoice() {
     else if (m.type === 'hand_frame') handFrame(m);
     else if (m.type === 'heard') { meterHeard.textContent = '听到：' + (m.text || '…'); }
     else if (m.type === 'rejected') { meterHeard.textContent += '（不是唤醒词）'; }
+    else if (m.type === 'mic') { meterHeard.textContent = m.ok ? '' : m.text; meterHeard.classList.toggle('warn', !m.ok); }
     else if (m.type === 'agents') agentsUpdate(m);
     else if (m.type === 'llm') { if (m.name) window.JV_NAME = m.name === 'sir' ? '' : m.name; if (window.ONBOARD) ONBOARD.msg(m); }
   };

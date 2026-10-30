@@ -114,7 +114,10 @@
     "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_GB/alan/medium/en_GB-alan-medium.onnx"
    ],
    "group": "en",
-   "optional": true
+   "optional": true,
+   "alt_sizes": [
+    63201294
+   ]
   },
   {
    "path": "alan/en_GB-alan-medium.onnx.json",
@@ -147,7 +150,10 @@
    "optional": true,
    "zip": "https://modelscope.cn/datasets/rubintry/jarvis/resolve/master/jarvis%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B/jarvis.zip",
    "note": "community Piper voice trained on film audio; see NOTICE",
-   "size": 114199108
+   "size": 114199108,
+   "alt_sizes": [
+    114199011
+   ]
   },
   {
    "path": "jarvis/jarvis-high.onnx.json",
