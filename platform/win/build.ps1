@@ -20,7 +20,16 @@ if (-not (Test-Path "$Out\cache\$Pbs")) {
 }
 tar -xzf "$Out\cache\$Pbs" -C "$Src"          # -> dist\win\python
 
+$Zh = "$PSScriptRoot\ChineseSimplified.isl"
+if (-not (Test-Path $Zh)) {
+  try { Invoke-WebRequest "https://jrsoftware.org/files/istrans/Chinese-Simplified/ChineseSimplified.isl" -OutFile $Zh }
+  catch { }
+  if ((Test-Path $Zh) -and -not (Select-String -Path $Zh -Pattern "LanguageName" -Quiet)) { Remove-Item $Zh }
+  if (-not (Test-Path $Zh)) { Write-Host "(Chinese installer text unavailable, building English only)" }
+}
+
 $Iscc = @("${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe", "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (-not $Iscc) { throw "Inno Setup 6 not found" }
 & $Iscc "/DVERSION=$Ver" "/DSRC=$Src" "$PSScriptRoot\jarvis.iss"
+if ($LASTEXITCODE -ne 0) { throw "Inno Setup failed ($LASTEXITCODE)" }
 Write-Host "built $Out\Jarvis-Setup-$Ver.exe"
