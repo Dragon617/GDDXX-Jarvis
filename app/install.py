@@ -174,7 +174,8 @@ def models():
                 ok = _good(dest, e)
                 if ok:
                     break
-                log(f"  文件校验不通过，换一个来源：{url}")
+                got = dest.stat().st_size if dest.exists() else 0
+                log(f"  文件校验不通过（{got} 字节，sha256 {_sha(dest)[:16] if got else '-'}），换一个来源：{url}")
                 dest.unlink(missing_ok=True)
             except Exception as ex:
                 log(f"  {url} 不可用：{type(ex).__name__}")
@@ -196,6 +197,9 @@ def models():
                 log(f"  跳过可选模型 {e['path']}（之后再打开 Jarvis 会再试）")
                 continue
             raise RuntimeError(f"模型下载失败：{e['path']}。请检查网络后重新打开 Jarvis。")
+    if "en" in groups and not any(_good(M / e["path"], e) for e in todo if e["path"].endswith((".onnx",)) and
+                                  e["path"].startswith(("jarvis/", "alan/"))):
+        raise RuntimeError("贾维斯的声音模型没有下载下来（jarvis-high 和备用的 alan 都失败了）。请检查网络后重新打开 Jarvis。")
     for d in man.get("dirs", []):
         if d.get("group") in groups and not (M / d["dir"]).exists():
             log(f"下载模型文件夹 {d['dir']}")

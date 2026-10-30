@@ -92,6 +92,7 @@ class Service:
         self.dec_mic, self.dec_ref = Decimator(), Decimator()
         self.speaker = make_speaker()
         self.clients = set()
+        self.mic_msg = None                    # set while no audio device can be opened
         from . import gesture                  # hand tracking for holograms
         gesture.UI = self.broadcast
         self.loop = None
@@ -473,8 +474,30 @@ class Service:
             log(f"input: {sd.query_devices(i)['name']} | output: {sd.query_devices(o)['name']}")
         except Exception as e:
             log(f"device query failed: {e}")
+        warned = False
+        while True:                                   # no microphone yet, or it was unplugged: keep trying
+            try:
+                self.audio_run()
+            except Exception as e:
+                if not warned:
+                    log(f"audio device unavailable: {type(e).__name__}: {e}")
+                    self.mic_msg = {"type": "mic", "ok": False,
+                                    "text": "没有找到可用的麦克风或扬声器。接上设备后会自动重试；也可以先用文字输入。"}
+                    self.broadcast(self.mic_msg)
+                    warned = True
+                time.sleep(5)
+                try:
+                    sd._terminate(); sd._initialize()        # re-scan devices (a newly plugged-in microphone)
+                except Exception:
+                    pass
+
+    def audio_run(self):
         last = time.time()
         with sd.Stream(samplerate=DEV_SR, blocksize=HOP, channels=(1, 1), dtype="float32", callback=self.duplex_cb):
+            if self.mic_msg:
+                log("audio device ready")
+                self.mic_msg = None
+                self.broadcast({"type": "mic", "ok": True})
             while True:
                 x = self.mic_q.get()
                 self.recent = np.concatenate([self.recent[len(x):], x])
@@ -514,6 +537,8 @@ class Service:
                 await ws.send(json.dumps(onboard.status(), ensure_ascii=False))   # no model yet: the window opens 「接入大脑」
                 from . import agents
                 await ws.send(json.dumps(agents.snapshot(), ensure_ascii=False))
+                if self.mic_msg:
+                    await ws.send(json.dumps(self.mic_msg, ensure_ascii=False))
             except Exception:
                 pass
             threading.Thread(target=self.push_world, daemon=True).start()
