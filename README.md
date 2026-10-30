@@ -24,6 +24,7 @@
 1. 到 [Releases](https://github.com/shitoudaidi/GDDXX-Jarvis/releases) 下载：
    - Mac：`Jarvis-2.0.0-arm64.dmg`（Apple 芯片）或 `-x86_64.dmg`（Intel），把 Jarvis 拖进「应用程序」。
    - Windows：`Jarvis-Setup-2.0.0.exe`，双击安装（不需要管理员权限）。
+   - 安装包没有签名。Mac 第一次打开请在「应用程序」里右键点 Jarvis → 打开 → 打开；Windows 提示“已保护你的电脑”时点「更多信息 → 仍要运行」。
 2. 第一次打开会在浏览器里显示安装进度：准备 Python 组件、下载约 1 GB 语音模型（国内镜像优先），只需一次。
 3. 打开后先弹出 **「接入大脑」**：选服务商，粘贴 API Key，点「测试连接」（会同时测试对话和工具调用），通过后保存。
 4. 允许麦克风权限，说 “Hey Jarvis”。

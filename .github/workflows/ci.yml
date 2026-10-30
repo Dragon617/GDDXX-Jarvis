@@ -54,13 +54,14 @@ jobs:
       - run: (cd hud && python3 -m http.server 8811 &) && sleep 2 && node tests/hud_check.js http://127.0.0.1:8811/index.html
 
   build:
-    if: startsWith(github.ref, 'refs/tags/v')
+    # installers: built on every PR (to keep the scripts working) and on v* tags (published by the release job)
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'pull_request'
     needs: [test, hud]
     strategy:
       matrix:
         include:
           - {os: macos-14, script: "bash platform/mac/build.sh arm64", out: "dist/*.dmg"}
-          - {os: macos-13, script: "bash platform/mac/build.sh x86_64", out: "dist/*.dmg"}
+          - {os: macos-15-intel, script: "bash platform/mac/build.sh x86_64", out: "dist/*.dmg"}
           - {os: windows-latest, script: "choco install innosetup -y --no-progress; powershell -ExecutionPolicy Bypass -File platform/win/build.ps1", out: "dist/*.exe"}
     runs-on: ${{ matrix.os }}
     steps:
@@ -69,3 +70,18 @@ jobs:
         shell: bash
       - uses: actions/upload-artifact@v4
         with: {name: "jarvis-${{ matrix.os }}", path: "${{ matrix.out }}"}
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions: {contents: write}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: {path: dist, merge-multiple: true}
+      - name: publish the installers on the Releases page
+        env: {GH_TOKEN: "${{ github.token }}"}
+        run: |
+          ls -l dist
+          gh release create "$GITHUB_REF_NAME" dist/*.dmg dist/*.exe --title "Jarvis ${GITHUB_REF_NAME#v}" --notes-file docs/release-notes.md --latest
