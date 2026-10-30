@@ -18,12 +18,16 @@ $Pbs = "cpython-$PyVer+$PbsTag-x86_64-pc-windows-msvc-install_only.tar.gz"
 if (-not (Test-Path "$Out\cache\$Pbs")) {
   Invoke-WebRequest "https://github.com/astral-sh/python-build-standalone/releases/download/$PbsTag/$Pbs" -OutFile "$Out\cache\$Pbs"
 }
-tar -xzf "$Out\cache\$Pbs" -C "$Src"          # -> dist\win\python
+# Windows' own tar: a Git-for-Windows tar earlier on PATH reads "D:\..." as a remote host
+& "$env:SystemRoot\System32\tar.exe" -xzf "$Out\cache\$Pbs" -C "$Src"          # -> dist\win\python
+if (-not (Test-Path "$Src\python\pythonw.exe")) { throw "Python runtime missing after unpacking $Pbs" }
 
 $Zh = "$PSScriptRoot\ChineseSimplified.isl"
 if (-not (Test-Path $Zh)) {
-  try { Invoke-WebRequest "https://jrsoftware.org/files/istrans/Chinese-Simplified/ChineseSimplified.isl" -OutFile $Zh }
-  catch { }
+  foreach ($u in "https://raw.githubusercontent.com/kira-96/Inno-Setup-Chinese-Simplified-Translation/main/ChineseSimplified.isl",
+                 "https://jrsoftware.org/files/istrans/Chinese-Simplified/ChineseSimplified.isl") {
+    try { Invoke-WebRequest $u -OutFile $Zh; break } catch { }
+  }
   if ((Test-Path $Zh) -and -not (Select-String -Path $Zh -Pattern "LanguageName" -Quiet)) { Remove-Item $Zh }
   if (-not (Test-Path $Zh)) { Write-Host "(Chinese installer text unavailable, building English only)" }
 }
