@@ -1,0 +1,28 @@
+## 贾维斯 2.0
+
+全新重写：支持 macOS 和 Windows，接入你自己选的大模型。
+
+### 下载哪个
+
+| 电脑 | 文件 |
+|---|---|
+| Mac（Apple 芯片：M1/M2/M3/M4…） | `Jarvis-2.0.0-arm64.dmg` |
+| Mac（Intel 芯片） | `Jarvis-2.0.0-x86_64.dmg` |
+| Windows 10/11（64 位） | `Jarvis-Setup-2.0.0.exe` |
+
+不知道 Mac 是哪种芯片：点左上角苹果图标 → 关于本机，看“芯片”或“处理器”那一行。
+
+### 第一次打开
+
+- **Mac**：把 Jarvis 拖进「应用程序」。安装包没有苹果开发者签名，第一次双击会提示“无法验证开发者”。请在「应用程序」里**右键点 Jarvis → 打开 → 打开**。如果还是打不开，到「系统设置 → 隐私与安全性」，在下面点「仍要打开」。
+- **Windows**：如果出现“Windows 已保护你的电脑”，点「更多信息 → 仍要运行」。不需要管理员权限。
+- 第一次打开会在浏览器里显示安装进度：准备 Python 组件，下载约 1 GB 语音模型。只需要一次。
+- 然后弹出「接入大脑」：选服务商，粘贴 API Key，测试通过后保存，说 “Hey Jarvis”。
+
+完整说明见 [README](https://github.com/shitoudaidi/GDDXX-Jarvis#readme)。
+
+---
+
+**English**: Jarvis 2.0, a rewrite for macOS and Windows that works with the language model you choose. Download the
+`.dmg` for your Mac (arm64 = Apple silicon, x86_64 = Intel) or `Jarvis-Setup-2.0.0.exe` for Windows. The builds are not
+signed: on a Mac, right-click Jarvis in Applications → Open; on Windows, choose More info → Run anyway.

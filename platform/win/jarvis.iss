@@ -29,7 +29,10 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 
 [Languages]
-Name: "zh"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
+; Inno Setup ships no Simplified Chinese text; build.ps1 fetches the community translation when it can
+#if FileExists(AddBackslash(SourcePath) + "ChineseSimplified.isl")
+Name: "zh"; MessagesFile: "ChineseSimplified.isl"
+#endif
 Name: "en"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]

@@ -10,3 +10,4 @@ venv/
 config.json
 mihome.json
 .DS_Store
+platform/win/ChineseSimplified.isl
