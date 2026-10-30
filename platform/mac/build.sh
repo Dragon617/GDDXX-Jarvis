@@ -13,7 +13,7 @@ rm -rf "$APP"; mkdir -p "$APP/Contents/MacOS" "$RES"
 sed "s/@VERSION@/$VER/g" "$ROOT/platform/mac/Info.plist" > "$APP/Contents/Info.plist"
 cp "$ROOT/platform/mac/Jarvis" "$APP/Contents/MacOS/Jarvis"; chmod 755 "$APP/Contents/MacOS/Jarvis"
 cp "$ROOT/platform/mac/Jarvis.icns" "$RES/Jarvis.icns"
-for x in jarvis hud app; do rsync -a --exclude __pycache__ --exclude '*.pyc' "$ROOT/$x" "$RES/"; done
+for x in jarvis hud app models-bundle; do rsync -a --exclude __pycache__ --exclude '*.pyc' "$ROOT/$x" "$RES/"; done
 cp "$ROOT/requirements.txt" "$ROOT/VERSION" "$ROOT/LICENSE" "$ROOT/NOTICE.md" "$RES/"
 
 PBS="cpython-$PY_VER+$PBS_TAG-$TRIPLE-install_only.tar.gz"

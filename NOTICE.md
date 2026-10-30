@@ -9,6 +9,7 @@ Jarvis itself is GPL-3.0 (see LICENSE). It includes or downloads the following, 
 | three.js r160 (build + selected examples/jsm) | `hud/vendor/three/` | MIT (`hud/vendor/three/LICENSE`) |
 | Saira, Michroma, JetBrains Mono (woff2 subsets) | `hud/vendor/fonts/` | SIL Open Font License 1.1 |
 | Syncopate (woff2 subset) | `hud/vendor/fonts/` | Apache License 2.0 |
+| Silero VAD model (`silero_vad.onnx`, from the sherpa-onnx release) | `models-bundle/` | MIT |
 | Xiaomi-cloud-tokens-extractor, Piotr Machowski | `jarvis/plugins/mihome/token_extractor.py` | MIT (`LICENSE.token_extractor` beside it) |
 
 The 8 HUD skins borrow the *visual language* of [agent-display](https://github.com/CYBERDADDYLEO/agent-display)

@@ -92,8 +92,9 @@ def _sha(p):
 def _good(dest, e):
     if not dest.exists() or dest.stat().st_size == 0:
         return False
-    if e.get("size") and dest.stat().st_size != e["size"]:
-        return False
+    n = dest.stat().st_size
+    if e.get("size") and n != e["size"]:
+        return n in e.get("alt_sizes", [])           # the same model re-exported by another host (size only)
     return not e.get("sha256") or _sha(dest) == e["sha256"]
 
 
