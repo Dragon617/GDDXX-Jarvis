@@ -118,6 +118,13 @@ def _fetch(url, dest, expect=0):
     os.replace(part, dest)
 
 
+def _extract(t, dest):
+    try:
+        t.extractall(dest, filter="data")              # safe extraction (Python 3.12, and recent 3.10/3.11 patches)
+    except TypeError:                                  # older 3.10/3.11: no filter argument
+        t.extractall(dest)
+
+
 def _from_archive(url, members, models):
     """Pull files out of a .tar.bz2 / .zip release. members: {name inside (basename): destination}."""
     with tempfile.TemporaryDirectory() as td:
@@ -129,7 +136,7 @@ def _from_archive(url, members, models):
                 z.extractall(out)
         else:
             with tarfile.open(arc) as t:
-                t.extractall(out, filter="data")
+                _extract(t, out)
         for p in out.rglob("*"):
             if p.is_file() and p.name in members:
                 members[p.name].parent.mkdir(parents=True, exist_ok=True)
@@ -196,7 +203,7 @@ def models():
                 arc = Path(td) / "a.tar.bz2"
                 _fetch(d["archive"], arc)
                 with tarfile.open(arc) as t:
-                    t.extractall(M, filter="data")
+                    _extract(t, M)
 
 
 # ---- page ------------------------------------------------------------------------------------------------
